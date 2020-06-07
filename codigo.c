@@ -280,9 +280,63 @@ int findLinealSearch(Lista *L, int element){
 
 }
 
-int findBinarySearch(int element){
+//  Funcion q bueca el medio 
+Nodo *middle(Nodo *inicio, Nodo *final) 
+{ 
+	if (inicio == NULL) 
+		return NULL; 
 
-}
+	Nodo *Aux1 = inicio; 
+	Nodo *Aux2 = inicio->siguiente; 
+
+	while (Aux2 != final) 
+	{ 
+		Aux2 = Aux2->siguiente; 
+		if (Aux2 != final) 
+		{ 
+			Aux1 = Aux1->siguiente; 
+			Aux2 = Aux2->siguiente; 
+		} 
+	} 
+
+	return Aux1; 
+} 
+
+// Funcion q implementa La busqueda binaria 
+
+int binarySearch(Lista *L, int value) 
+{ 
+	Nodo *inicio= L->inicio;
+	Nodo *final = NULL;
+
+	do
+	{ 
+		// encuenta el medio
+		Nodo *mid = middle(inicio,final); 
+
+		//  sie el medio es NUlL 
+		if (mid == NULL) 
+			return -1; 
+
+		//  si el  valor esta en el medio 
+		if (mid->dato == value) 
+			return mid->dato; 
+
+		// si el valor es mayor q la mitad
+		else if (mid->dato < value) 
+			inicio = mid->siguiente; 
+
+		// si el valor es menor q la mitad
+		else
+			final = mid; 
+
+	} while (final == NULL || 
+			final != inicio); 
+
+	// value  se noi se encuntra 
+	return -1; 
+} 
+
 
 void timeTest(){
 	unsigned t0, t1;
