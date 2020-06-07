@@ -402,6 +402,6 @@ int main() {
 	
 
 	 //int random2 = rand()%500;
-	// printf("Number to find: %i, result: %i.\n", random,findbinarySearch(S,random2));
+	printf("Number to find: %i, result: %i.\n", random,findbinarySearch(lista,random));
     //return 0;
 }
