@@ -23,7 +23,8 @@
  */
 void printList(int lista[]){
 	printf("Lista: ");
-	for(int i = 0; i<ListaSize; i++){
+	int i = 0;
+	for( i<ListaSize; i++;){
 		printf("%i ", lista[i] );
 	}
 	printf("\n");
@@ -38,8 +39,9 @@ void printList(int lista[]){
  */
 int findMaxDigits(int lista[]){
 	int max = lista[0];
+	int i = 0;
 
-	for(int i = 0; i<ListaSize; i++){
+	for( i<ListaSize; i++;){
 		if(lista[i]>max){
 			max = lista[i];
 
@@ -66,9 +68,9 @@ void findMin(int lista[], int *min, int *pos,int pot,int digits){
 	
 	m = lista[0]%(int)(pow(10,pot+1));
 	mm = lista[0];
-
+	int i = 0; 
 	
-	for(int i = 0; i<ListaSize; i++){
+	for(i<ListaSize; i++;){
 		if(lista[i] != pow(10,digits)-1 && m == 9){
 			mm = lista[i];
 			m = lista[i]%(int)(pow(10,pot+1));
@@ -98,10 +100,10 @@ void RadixSort(int lista[]){
 	int digits = findMaxDigits(lista);
 	int temp[ListaSize];
 	int min = 0, minPos = 0;
-	
-	for(int j=0; j<digits; j++ ){		
-		
-		for(int i=0; i<ListaSize; i++){
+	int j=0;
+	for( j<digits; j++; ){		
+		int i=0;
+		for( i<ListaSize; i++;){
 			findMin(lista, &min, &minPos,j, digits);
 			
 			temp[i] = min;
@@ -109,8 +111,8 @@ void RadixSort(int lista[]){
 		}
 		printf("Iteracion: %i, ", j+1);
 		printList(temp);
-
-		for(int k = 0; k<ListaSize; k++){
+		int k = 0;
+		for( k<ListaSize; k++;){
 			lista[k] = temp[k];
 		}
 	}	
@@ -244,9 +246,9 @@ Lista* sortList(Lista *L){
 	M = listaNueva();
 	Nodo *aux = L->inicio;
 	int min;
+	int i=0;
 
-
-	for(int i=0; i<ListaSize; i++){
+	for( i<ListaSize; i++;){
 		aux = L->inicio;
 		min = aux->dato;
 		while(aux!=NULL){
@@ -265,7 +267,7 @@ Lista* sortList(Lista *L){
 
 }
 
-
+//ejercicio 4
 
 int findLinealSearch(Lista *L, int element){
 	Nodo *nAux = L->inicio;
@@ -279,8 +281,7 @@ int findLinealSearch(Lista *L, int element){
 	return -1;
 
 }
-
-//  Funcion q bueca el medio 
+//ejercicio 5
 Nodo *middle(Nodo *inicio, Nodo *final) 
 { 
 	if (inicio == NULL) 
@@ -304,7 +305,7 @@ Nodo *middle(Nodo *inicio, Nodo *final)
 
 // Funcion q implementa La busqueda binaria 
 
-int binarySearch(Lista *L, int value) 
+int findbinarySearch(Lista *L, int value) 
 { 
 	Nodo *inicio= L->inicio;
 	Nodo *final = NULL;
@@ -337,15 +338,14 @@ int binarySearch(Lista *L, int value)
 	return -1; 
 } 
 
-
 void timeTest(){
 	unsigned t0, t1;
 
 	Lista *L;
 	L = listaNueva();
 	int result;
-
-	for(int i = 0; i<ListaSize; i++){
+	int i = 0;
+	for( i<ListaSize; i++;){
 		insertarDato(L, rand()%500);
 	}
 	int random = rand()%500;
@@ -365,29 +365,43 @@ int main() {
 	
 	// ----------- PROBLEM 1 ----------------------
 	int lista[ListaSize];
-	for(int i = 0; i<ListaSize; i++){
+	int i = 0;
+	for( i<ListaSize; i++;){
 		lista[i] = rand()%1000; // max number wont be > than 1000
 	}
 
-	//RadixSort(lista);
+	RadixSort(lista);
 	
 
 
 	// ----------- PROBLEM 2 ----------------------
-	// Lista *L;
-	// L = listaNueva();
+	 //Lista *L;
+	//L = listaNueva();
+	//int p= 0;
+	//for(p<ListaSize; p++;){
+	//	insertarDato(L, rand()%500);
+	//}
 
-	// for(int i = 0; i<ListaSize; i++){
-	// 	insertarDato(L, rand()%500);
-	// }
+	//mostrarLista(L);
 
-	// mostrarLista(L);
-
-	// int random = rand()%500;
+	 //int random = rand()%500;
 	// printf("Number to find: %i, result: %i.\n", random, findLinealSearch(L,random) );
 	
 	timeTest();
-	// ----------- PROBLEM 3 ----------------------
 
-    return 0;
+	// ----------- PROBLEM 3 ----------------------
+	//Lista *M;
+	//M = listaNueva();
+	//int O= 0;
+	//for(O<ListaSize; O++;){
+	//	insertarDato(M, rand()%500);
+	//}
+	//S=RadixSort(M);
+
+	//mostrarLista(s);
+	
+
+	 //int random2 = rand()%500;
+	// printf("Number to find: %i, result: %i.\n", random,findbinarySearch(S,random2));
+    //return 0;
 }
