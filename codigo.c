@@ -8,8 +8,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
-#include <math.h>      
-#define ListaSize 10
+#include <math.h> 
+
+
+#define ListaSize 50
+
+
+//---------------	 PROBLEM 1
 
 /**
  * @brief      Prints a list.
@@ -115,9 +120,163 @@ void RadixSort(int lista[]){
 
 }
 
+//---------------	 PROBLEM 2 
+
+typedef struct Lista Lista;
+typedef struct Nodo Nodo;
+
+struct Nodo
+{
+	int dato;
+	Nodo *siguiente;
+};
+
+struct Lista
+{
+	Nodo *inicio;
+};
+
+Lista *listaNueva(void)
+{
+	Lista *L;
+	L = (Lista *) malloc(sizeof(Lista));
+	L->inicio = NULL;
+	return L;
+}
+void insertarDato(Lista *L, int dato)
+{
+	Nodo *n, *aux;
+	
+	if(L->inicio == NULL) //Valida si la lista está vacía
+	{
+		//Inserta al inicio de la lista
+		L->inicio = (Nodo *) malloc(sizeof(Nodo));
+		L->inicio->dato = dato;
+		L->inicio->siguiente = NULL;
+		return;
+	}
+	n = L->inicio;
+	
+	while(n!= NULL)
+	{
+		aux = n;
+		n = n->siguiente;		
+	}
+	aux->siguiente = (Nodo *) malloc(sizeof(Nodo));
+	aux->siguiente->siguiente = NULL;
+	aux->siguiente->dato = dato;
+
+	
+}
+
+void eliminarDato(Lista *L, int dato)
+{
+	Nodo *aux = L->inicio, *anterior = NULL;
+	
+	//Valida si la lista esta vacia
+	if(L->inicio == NULL)
+	{
+		printf("La lista está vacía...\n");		
+	}
+	else
+	{
+		//Si el nodo a eliminar esta al inicio de la lista
+		if(L->inicio->dato == dato)
+		{
+			aux = L->inicio;
+			L->inicio = L->inicio->siguiente;				
+		}
+		else
+		{
+			while(aux!= NULL)
+			{
+				if(aux->dato == dato) //Nodo a eliminar es el último nodo de la lista
+				{
+					anterior->siguiente = aux->siguiente;
+					break;					
+				}
+				else
+				{
+					anterior = aux;
+					aux = aux->siguiente;				
+				}
+			}
+		}
+		if(aux != NULL)
+		{
+			//printf("El dato eliminado es %d \n", aux->dato);
+			free(aux);
+		}
+	}
+}
 
 
-int findLinealSearch(int element){
+void mostrarLista(const Lista *L)
+{
+	Nodo *i;
+	printf("La lista es: \n");
+	for(i = L->inicio; i!= NULL; i = i->siguiente)
+		printf("%d ", i->dato);
+	printf("\n");
+}
+
+void liberarLista(Lista *L)
+{
+	Nodo *n, *aux;
+	if(L->inicio == NULL)
+		return;
+	if(L->inicio->siguiente == NULL)
+		return;		
+	n = L->inicio;
+	
+	while(n != NULL)
+	{
+		aux = n;
+		n = n->siguiente;
+		free(aux);
+	}
+	
+}
+
+Lista* sortList(Lista *L){
+	
+	Lista *M;
+	M = listaNueva();
+	Nodo *aux = L->inicio;
+	int min;
+
+
+	for(int i=0; i<ListaSize; i++){
+		aux = L->inicio;
+		min = aux->dato;
+		while(aux!=NULL){
+			if(min>aux->dato){
+				min = aux->dato;
+			}
+			aux = aux->siguiente;
+		}
+
+		eliminarDato(L, min);
+		insertarDato(M, min);
+	}
+
+	mostrarLista(M);
+	liberarLista(L);
+
+}
+
+
+
+int findLinealSearch(Lista *L, int element){
+	Nodo *nAux = L->inicio;
+	
+	while(nAux != NULL)
+	{
+		if(nAux->dato == element)
+			return 0;
+		nAux = nAux->siguiente;		
+	}
+	return -1;
 
 }
 
@@ -125,6 +284,26 @@ int findBinarySearch(int element){
 
 }
 
+void timeTest(){
+	unsigned t0, t1;
+
+	Lista *L;
+	L = listaNueva();
+	int result;
+
+	for(int i = 0; i<ListaSize; i++){
+		insertarDato(L, rand()%500);
+	}
+	int random = rand()%500;
+
+	t0 = clock();
+	result = findLinealSearch(L,random);
+	t1 = clock();
+	double time = ((double)(t1-t0)/CLOCKS_PER_SEC);
+	
+	printf("Number to find: %i, result: %i.\n", random, result );
+	printf("Time: %f.\n",time );
+}
 
 int main() {
 
@@ -136,9 +315,25 @@ int main() {
 		lista[i] = rand()%1000; // max number wont be > than 1000
 	}
 
-	RadixSort(lista);
-	// --------------------------------------------
+	//RadixSort(lista);
+	
 
+
+	// ----------- PROBLEM 2 ----------------------
+	// Lista *L;
+	// L = listaNueva();
+
+	// for(int i = 0; i<ListaSize; i++){
+	// 	insertarDato(L, rand()%500);
+	// }
+
+	// mostrarLista(L);
+
+	// int random = rand()%500;
+	// printf("Number to find: %i, result: %i.\n", random, findLinealSearch(L,random) );
+	
+	timeTest();
+	// ----------- PROBLEM 3 ----------------------
 
     return 0;
 }
