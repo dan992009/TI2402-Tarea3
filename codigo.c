@@ -349,17 +349,39 @@ void timeTest(){
 		insertarDato(L, rand()%500);
 	}
 	int random = rand()%500;
-
 	t0 = clock();
 	result = findLinealSearch(L,random);
 	t1 = clock();
 	double time = ((double)(t1-t0)/CLOCKS_PER_SEC);
 	
-	printf("Number to find: %i, result: %i.\n", random, result );
+	printf("Number to find: %d, result: %d.\n", random, result );
+	printf("Time: %f.\n",time );
+}
+void timeTest2(){
+	unsigned t0, t1;
+
+	Lista *L;
+	L = listaNueva();
+	int result;
+	int i = 0;
+	for( i<ListaSize; i++;){
+		insertarDato(L, rand()%500);
+	}
+	int random = rand()%500;
+	Lista *M=listaNueva();
+	M=sortList(L);
+	t0 = clock();
+	printf("Number to find: %i, result: %d.\n", random,findbinarySearch(M,random));
+	t1 = clock();
+	double time = ((double)(t1-t0)/CLOCKS_PER_SEC);
 	printf("Time: %f.\n",time );
 }
 
 int main() {
+	 timeTest();
+	 timeTest2();
+	 
+
 
 	srand(time(NULL));
 	
@@ -367,7 +389,7 @@ int main() {
 	int lista[ListaSize];
 	int i = 0;
 	for( i<ListaSize; i++;){
-		lista[i] = rand()%1000; // max number wont be > than 1000
+		//lista[i] = rand()%1000; // max number wont be > than 1000
 	}
 
 	RadixSort(lista);
@@ -387,21 +409,9 @@ int main() {
 	 //int random = rand()%500;
 	// printf("Number to find: %i, result: %i.\n", random, findLinealSearch(L,random) );
 	
-	timeTest();
 
-	// ----------- PROBLEM 3 ----------------------
-	//Lista *M;
-	//M = listaNueva();
-	//int O= 0;
-	//for(O<ListaSize; O++;){
-	//	insertarDato(M, rand()%500);
-	//}
-	//S=RadixSort(M);
-
-	//mostrarLista(s);
+	// ----------- PROBLEM 3 ----------------------();
 	
-
-	 //int random2 = rand()%500;
-	printf("Number to find: %i, result: %i.\n", random,findbinarySearch(lista,random));
-    //return 0;
+	
+	
 }
